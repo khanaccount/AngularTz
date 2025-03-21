@@ -1,0 +1,207 @@
+<div class="auth">
+  <h1 class="auth__logo">
+    <a class="auth__logo-link" href="/">Домой</a>
+  </h1>
+
+  <div class="auth__container">
+    <div class="auth__form">
+      <div class="auth__content">
+        <h2 class="auth__title">
+          {{ isLoginMode ? "Авторизация" : "Регистрация" }}
+        </h2>
+
+        <div class="auth__toggle">
+          <button class="auth__toggle-button" (click)="toggleMode()">
+            {{
+              isLoginMode
+                ? "Нужен аккаунт? Зарегистрироваться"
+                : "Уже есть аккаунт? Войти"
+            }}
+          </button>
+        </div>
+
+        <div *ngIf="errorMessage" class="auth__alert auth__alert--error">
+          {{ errorMessage }}
+        </div>
+
+        <div *ngIf="isLoading" class="auth__preloader">
+          <mat-spinner></mat-spinner>
+        </div>
+
+        <form
+          *ngIf="isLoginMode; else registerBlock"
+          class="auth__form-content"
+          [formGroup]="loginForm"
+          (ngSubmit)="login()"
+        >
+          <div class="auth__group">
+            <label class="auth__label" for="email">Email</label>
+            <input
+              class="auth__input"
+              type="email"
+              id="email"
+              formControlName="email"
+              required
+            />
+            <div
+              *ngIf="
+                loginForm.controls['email'].invalid &&
+                (loginForm.controls['email'].dirty ||
+                  loginForm.controls['email'].touched)
+              "
+              class="auth__alert auth__alert--error"
+            >
+              <span *ngIf="loginForm.controls['email'].errors?.['required']">
+                Введите email.
+              </span>
+              <span *ngIf="loginForm.controls['email'].errors?.['email']">
+                Неверный формат email.
+              </span>
+            </div>
+          </div>
+
+          <div class="auth__group">
+            <label class="auth__label" for="password">Пароль</label>
+            <input
+              class="auth__input"
+              type="password"
+              id="password"
+              formControlName="password"
+              required
+            />
+            <div
+              *ngIf="
+                loginForm.controls['password'].invalid &&
+                (loginForm.controls['password'].dirty ||
+                  loginForm.controls['password'].touched)
+              "
+              class="auth__alert auth__alert--error"
+            >
+              <span *ngIf="loginForm.controls['password'].errors?.['required']">
+                Введите пароль.
+              </span>
+              <span
+                *ngIf="loginForm.controls['password'].errors?.['minlength']"
+              >
+                Пароль должен содержать не менее 6 символов.
+              </span>
+            </div>
+          </div>
+
+          <button
+            class="auth__button"
+            type="submit"
+            [disabled]="loginForm.invalid"
+          >
+            Войти
+          </button>
+        </form>
+
+        <ng-template #registerBlock>
+          <form
+            class="auth__form-content"
+            [formGroup]="registerForm"
+            (ngSubmit)="register()"
+          >
+            <div class="auth__group">
+              <label class="auth__label" for="email">Email</label>
+              <input
+                class="auth__input"
+                type="email"
+                id="email"
+                formControlName="email"
+                required
+              />
+              <div
+                *ngIf="
+                  registerForm.controls['email'].invalid &&
+                  (registerForm.controls['email'].dirty ||
+                    registerForm.controls['email'].touched)
+                "
+                class="auth__alert auth__alert--error"
+              >
+                <span
+                  *ngIf="registerForm.controls['email'].errors?.['required']"
+                >
+                  Введите email.
+                </span>
+                <span *ngIf="registerForm.controls['email'].errors?.['email']">
+                  Неверный формат email.
+                </span>
+              </div>
+            </div>
+
+            <div class="auth__group">
+              <label class="auth__label" for="password">Пароль</label>
+              <input
+                class="auth__input"
+                type="password"
+                id="password"
+                formControlName="password"
+                required
+              />
+              <div
+                *ngIf="
+                  registerForm.controls['password'].invalid &&
+                  (registerForm.controls['password'].dirty ||
+                    registerForm.controls['password'].touched)
+                "
+                class="auth__alert auth__alert--error"
+              >
+                <span
+                  *ngIf="registerForm.controls['password'].errors?.['required']"
+                >
+                  Введите пароль.
+                </span>
+                <span
+                  *ngIf="registerForm.controls['password'].errors?.['minlength']"
+                >
+                  Пароль должен содержать не менее 6 символов.
+                </span>
+              </div>
+            </div>
+
+            <div class="auth__group">
+              <label class="auth__label" for="confirmPassword"
+                >Подтвердите пароль</label
+              >
+              <input
+                class="auth__input"
+                type="password"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                required
+              />
+              <div
+                *ngIf="
+                  registerForm.controls['confirmPassword'].invalid &&
+                  (registerForm.controls['confirmPassword'].dirty ||
+                    registerForm.controls['confirmPassword'].touched)
+                "
+                class="auth__alert auth__alert--error"
+              >
+                <span
+                  *ngIf="registerForm.controls['confirmPassword'].errors?.['required']"
+                >
+                  Введите подтверждение пароля.
+                </span>
+                <span
+                  *ngIf="registerForm.controls['confirmPassword'].errors?.['passwordMismatch']"
+                >
+                  Пароли не совпадают.
+                </span>
+              </div>
+            </div>
+            <button
+              class="auth__button"
+              type="submit"
+              [disabled]="registerForm.invalid"
+            >
+              Регистрация
+            </button>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,25 @@
 <header class="header">
-  <div class="container">
-    <h1 class="header__logo">ReqRes App</h1>
+  <div class="header__container">
+    <h1 class="header__logo">
+      <a href="/" class="header__logo-link">ReqRes App</a>
+    </h1>
     <nav class="header__nav">
       <ul class="header__nav-list">
         <li class="header__nav-item">
-          <a class="header__nav-link" href="/users">Пользователи</a>
-        </li>
-        <li class="header__nav-item">
-          <a class="header__nav-link" href="/resources">Ресурсы</a>
-        </li>
-        <li class="header__nav-item">
-          <a class="header__nav-link" href="/login">Войти</a>
+          <ng-container
+            *ngIf="isLoggedIn$ | async as isLoggedIn; else loggedOut"
+          >
+            <span
+              class="header__username"
+              *ngIf="userEmail$ | async as userEmail"
+            >
+              {{ userEmail.split("@")[0] }}
+            </span>
+            <button class="header__btn" (click)="logout()">Выход</button>
+          </ng-container>
+          <ng-template #loggedOut>
+            <a class="header__link" routerLink="/login">Войти</a>
+          </ng-template>
         </li>
       </ul>
     </nav>

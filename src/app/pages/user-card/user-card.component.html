@@ -1,0 +1,59 @@
+<div class="user-card">
+  <div class="user-card__container" *ngIf="user as u">
+    <h2 class="user-card__title">Детали пользователя</h2>
+    <img class="user-card__avatar" [src]="u.avatar" [alt]="u.first_name" />
+
+    <div *ngIf="!isEditing; else editMode" class="user-card__info">
+      <h3 class="user-card__name">{{ u.first_name }} {{ u.last_name }}</h3>
+      <p class="user-card__email">{{ u.email }}</p>
+      <div class="user-card__actions">
+        <button
+          class="user-card__button user-card__button--edit"
+          (click)="editUser()"
+        >
+          Редактировать
+        </button>
+        <button
+          class="user-card__button user-card__button--delete"
+          (click)="deleteUser()"
+        >
+          Удалить
+        </button>
+      </div>
+    </div>
+
+    <ng-template #editMode>
+      <div class="user-card__edit-form">
+        <input
+          class="user-card__input"
+          [(ngModel)]="updatedUser.first_name"
+          placeholder="Имя"
+        />
+        <input
+          class="user-card__input"
+          [(ngModel)]="updatedUser.last_name"
+          placeholder="Фамилия"
+        />
+        <input
+          class="user-card__input"
+          [(ngModel)]="updatedUser.email"
+          placeholder="Email"
+        />
+        <div class="user-card__actions">
+          <button
+            class="user-card__button user-card__button--save"
+            (click)="saveUser()"
+          >
+            Сохранить
+          </button>
+          <button
+            class="user-card__button user-card__button--cancel"
+            (click)="editUser()"
+          >
+            Отмена
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

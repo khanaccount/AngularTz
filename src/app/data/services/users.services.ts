@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { UsersResponse } from '../interface/users.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,8 @@ import { UsersResponse } from '../interface/users.interface';
 export class UsersService {
   http: HttpClient = inject(HttpClient);
   baseApiUrl = 'https://reqres.in/api';
-  getUsers() {
-    return this.http.get<UsersResponse>(`${this.baseApiUrl}/users?page=2`);
+  getUsers(page: number = 1): Observable<UsersResponse> {
+    const url = `${this.baseApiUrl}/users?page=${page}`;
+    return this.http.get<UsersResponse>(url);
   }
 }

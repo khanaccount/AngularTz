@@ -5,7 +5,7 @@
 
 .user-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(1, 1fr);
   grid-column-gap: 10px;
   grid-row-gap: 20px;
@@ -14,11 +14,13 @@
   align-items: center;
   width: 600px;
   margin: 0 auto;
+  margin-bottom: 20px;
   h2 {
     margin-bottom: 20px;
   }
 
   .user-card {
+    cursor: pointer;
     background-color: var(--card-bg);
     color: var(--text-color);
     padding: 15px;
@@ -43,5 +45,39 @@
       font-size: 14px;
       color: var(--text-color);
     }
+  }
+}
+.resource-list {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 15px;
+  color: black;
+
+  .resource-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: start;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+  }
+  .color-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .color-box {
+    width: 24px;
+    height: 24px;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 }

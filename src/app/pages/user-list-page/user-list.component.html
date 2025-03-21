@@ -1,0 +1,49 @@
+<div class="container">
+  <h2>Список пользователей</h2>
+  <div class="user-list">
+    @if (users?.data) { @for (user of users?.data; track user.id) {
+    <div class="users">
+      <div class="user-card" (click)="goToUser(user.id)">
+        @if (user.avatar) {
+        <img [src]="user.avatar" [alt]="user.last_name" />
+        } @else {
+        <img src="/assets/imgs/avatarEror.png" alt="errorImg" />
+        }
+        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+        <p>{{ user.email }}</p>
+      </div>
+    </div>
+    } } @else {
+    <p>Данные о пользователях отсутствуют</p>
+    }
+  </div>
+  <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex - 1"
+    (page)="handlePageEvent($event)"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+
+  <h2>Список ресурсов</h2>
+  <div class="resource-list">
+    @if (resources?.data) { @for (resource of resources?.data; track
+    resource.id) {
+    <div class="resources">
+      <div class="resource-card">
+        <h3>{{ resource.name }}</h3>
+        <p>Year: {{ resource.year }}</p>
+        <div class="color-container">
+          <p class="color-box" [style.background-color]="resource.color"></p>
+          <p>Color: {{ resource.color }}</p>
+        </div>
+
+        <p>Pantone Value: {{ resource.pantone_value }}</p>
+      </div>
+    </div>
+    } } @else {
+    <p>Данные о ресурсах отсутствуют</p>
+    }
+  </div>
+</div>
