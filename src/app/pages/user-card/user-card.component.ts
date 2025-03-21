@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Импортируем FormsModule
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-card',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Добавляем FormsModule
+  imports: [CommonModule, FormsModule], 
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss',
 })
